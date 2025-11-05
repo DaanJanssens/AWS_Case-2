@@ -35,12 +35,12 @@ jobs:
 
       - name: Terraform Plan
         if: ${{ github.event.inputs.actions == 'plan'}}
-        run: terraform plan -out=tfplan
+        run: terraform plan
 
 
       - name: Terraform Apply
         if: ${{ github.event.inputs.actions == 'apply'}}
-        run: terraform apply -auto-approve tfplan
+        run: terraform apply -auto-approve
 
       - name: Terraform Destroy
         if: ${{ github.event.inputs.actions == 'destroy'}}
