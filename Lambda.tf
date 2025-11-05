@@ -49,7 +49,7 @@ resource "aws_cloudwatch_event_rule" "ec2_state_change" {
 
   event_pattern = jsonencode({
     source        = ["aws.ec2"],
-    "detail-type" = ["EC2 instance state-change alert"],
+    "detail-type" = ["EC2 Instance State-change Notification"],
     detail = {
       state = ["stopped", "terminated"]
     }
