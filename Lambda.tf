@@ -1,5 +1,5 @@
 resource "aws_iam_role" "lambda_role" {
-  name = "ec2_doen_lambda_role"
+  name = "ec2_down_lambda_role"
 
   assume_role_policy = jsonencode({
     Version = "2012-10-17",
@@ -25,14 +25,14 @@ resource "aws_iam_role_policy_attachment" "sns_access" {
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "${path.module}/Send-Alert.py"
-  output_path = "${path.module}/Send-Alert.zip"
+  source_file = "${path.module}/Send_Alert.py"
+  output_path = "${path.module}/Send_Alert.zip"
 }
 
 resource "aws_lambda_function" "send_alert" {
   function_name = "SendEC2DownAlert"
   runtime       = "python3.12"
-  handler       = "send_alert.lambda_handler"
+  handler       = "Send_Alert.lambda_handler"
   filename      = data.archive_file.lambda_zip.output_path
   role          = aws_iam_role.lambda_role.arn
 
@@ -62,7 +62,7 @@ resource "aws_cloudwatch_event_target" "lambda_target" {
   arn       = aws_lambda_function.send_alert.arn
 }
 
-resource "aws_lambda_permission" "allow_eventbrigde" {
+resource "aws_lambda_permission" "allow_eventbridge" {
   statement_id  = "AllowExecutionFromCloudWatch"
   action        = "lambda:InvokeFunction"
   function_name = aws_lambda_function.send_alert.function_name
