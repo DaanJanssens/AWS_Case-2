@@ -1,7 +1,7 @@
 resource "aws_iam_role" "lambda_role" {
   name = "ec2_doen_lambda_role"
 
-  assume_role_policy = jsondecode({
+  assume_role_policy = jsonencode({
     Version = "2012-10-17",
     Statement = [{
       Action = "sts:AssumeRole",
@@ -47,7 +47,7 @@ resource "aws_cloudwatch_event_rule" "ec2_state_change" {
   name        = "EC2InstanceDownRule"
   description = "Triggers when a EC2 instance stops or terminates"
 
-  event_pattern = jsondecode({
+  event_pattern = jsonencode({
     source        = ["aws.ec2"],
     "detail-type" = ["EC2 instance state-change alert"],
     detail = {
