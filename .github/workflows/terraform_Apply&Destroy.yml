@@ -1,7 +1,12 @@
-name: Terraform Deployment
+name: Terraform Plan, Apply or Destroy
 
 on:
   workflow_dispatch:
+    inputs:
+      actions:
+        description: 'choose terraform action (plan, apply or destroy)'
+        required: true
+        default: 'plan'
 
 jobs:
   terraform:
@@ -29,8 +34,14 @@ jobs:
         run: terraform init
 
       - name: Terraform Plan
+        if: ${{ github.event.inputs.actions == 'plan'}}
         run: terraform plan -out=tfplan
 
 
       - name: Terraform Apply
+        if: ${{ github.event.inputs.actions == 'apply'}}
         run: terraform apply -auto-approve tfplan
+
+      - name: Terraform Destroy
+        if: ${{ github.event.inputs.actions == 'destroy'}}
+        run: terraform destroy -auto-aprove -input=false
