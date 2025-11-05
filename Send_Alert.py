@@ -1,4 +1,5 @@
 import boto3 # type: ignore
+import os
 
 sns = boto3.client('sns')
 
@@ -10,7 +11,7 @@ def lambda_handler(event, context):
     message = f"EC2 Instance {instance_id} is now {state}"
     subject = f"Alert: EC2 instance {instance_id} is {state}"
 
-    topic_arn = "REPLACE_ME"
+    topic_arn = os.environ.get('SNS_TOPIC_ARN')
 
     if state in ['stopped', 'terminated']:
         sns.publish(
