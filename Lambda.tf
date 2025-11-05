@@ -25,8 +25,8 @@ resource "aws_iam_role_policy_attachment" "sns_access" {
 
 data "archive_file" "lambda_zip" {
   type        = "zip"
-  source_file = "${path.module}/Send_Alert.py"
-  output_path = "${path.module}/Send_Alert.zip"
+  source_file = "./Send_Alert.py"
+  output_path = "./Send_Alert.zip"
 }
 
 resource "aws_lambda_function" "send_alert" {
