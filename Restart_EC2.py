@@ -9,8 +9,8 @@ def lambda_handler(event, context):
 
     instance_ids = [
         i['InstanceId']
-        for reservation in response.get['Reservations', []]
-        for i in reservation.get['Instances', []]
+        for reservation in response.get('Reservations', [])
+        for i in reservation.get('Instances', [])
     ]
 
     if instance_ids:
