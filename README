@@ -1,0 +1,3 @@
+Welkom to this repository. In this repository is the Terraform code to create the AWS network for Case Study two. Everything is seperated in different documents. 
+In this repository I have made Actions to push the code ta AWS itself. It's one Action that can Plan, Apply and Destroy the code.
+Take a look around and test the code yourself.
