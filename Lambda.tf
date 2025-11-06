@@ -79,6 +79,7 @@ resource "aws_lambda_function" "restart_ec2" {
   handler = "Restart_EC2.lambda_handler"
   filename = data.archive_file.lambda_restart_zip.output_path
   role = aws_iam_role.lambda_restart_rol.arn
+  timeout = 120
 }
 
 resource "aws_lambda_function" "send_alert" {
